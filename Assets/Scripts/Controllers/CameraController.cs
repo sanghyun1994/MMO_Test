@@ -9,6 +9,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] Vector3 _delta = new Vector3(0.0f, 6.0f, -5.0f);
 
     [SerializeField] private GameObject _player = null;
+
+
+
+    public void SetPlayer(GameObject player) { _player = player; }
+
     void Start()
     {
         
@@ -19,14 +24,31 @@ public class CameraController : MonoBehaviour
     {
         if (_mode == Define.CameraMode.QuarterView)
         {
+            if (_player.IsVaild() == false)
+            {
+                return;
+            }
+
             RaycastHit hit;
-            if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, LayerMask.GetMask("Wall")))
+            if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, 1 << (int)Define.Layer.Block))
             {
                 float dist = (hit.point - _player.transform.position).magnitude * 0.8f;
                 transform.position = _player.transform.position + _delta.normalized * dist;
             }
             else
             {
+
+                if (Input.GetAxis("Mouse ScrollWheel") < 0)
+                    _delta += _delta.normalized * 1.03f;
+                else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+                    _delta -= _delta.normalized * 1.03f;
+
+                if (_delta.magnitude < 4)
+                    _delta = _delta.normalized * 4;
+
+                if (_delta.magnitude > 12)
+                    _delta = _delta.normalized * 12;
+
                 transform.position = _player.transform.position + _delta;
                 transform.LookAt(_player.transform);
             }

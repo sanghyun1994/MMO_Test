@@ -23,12 +23,36 @@ public class Stat : MonoBehaviour
     private void Start()
     {
         _level = 1;
-        _hp = 100;
+        _hp = 10;
         _maxHp = 100;
         _attack = 10;
         _defense = 5;
-        _movSpeed = 10;
+        _movSpeed = 4.0f;
+    }
 
+    public virtual void OnAttacked(Stat attacker)
+    {
+        // 데미지는 음수가 되면 안되므로 0보다는 무조건 크게 강제로 설정한다.
+        int damage = Mathf.Max(0, attacker.Attack - Defense);
+        Hp -= damage; 
+        if(Hp <= 0)
+        {
+            Hp = 0;
+            Ondead(attacker);
+        }
+
+    }
+
+    public virtual void Ondead(Stat attacker)
+    {
+        // attacker가 플레이어일경우 exp 증가
+        PlayerStat playerStat = attacker as PlayerStat;
+        if (playerStat != null)
+        {
+            playerStat.Exp += 5;
+        }
+
+        Managers.Game.Despawn(gameObject);
     }
 
 

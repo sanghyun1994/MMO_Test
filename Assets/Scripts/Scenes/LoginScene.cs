@@ -11,15 +11,16 @@ public class LoginScene : BaseScene
 
         SceneType = Define.Scene.Login;
 
+        Managers.UI.ShowSceneUI<UI_StartButton>();
 
-    
+        Managers.Sound.Play("Bgm/reminiscence", Define.Sound.Bgm);
+
+
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            Managers.Scene.LoadScene(Define.Scene.Game);
-
+       
     }
 
     public override void Clear()

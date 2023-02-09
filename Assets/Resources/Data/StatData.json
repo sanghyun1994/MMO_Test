@@ -2,19 +2,41 @@
 	"stats": [
 		{
 			"level": "1",
-			"hp": "100",
-			"attack": "10"
+			"maxHp": "300",
+			"attack": "35",
+			"totalExp" :  "0" 
 		},
 		{
 			"level": "2",
-			"hp": "150",
-			"attack": "15"
+			"maxHp": "400",
+			"attack": "40",
+			"totalExp": "20"
 		},
 		{
 			"level": "3",
-			"hp": "200",
-			"attack": "20"
+			"maxHp": "500",
+			"attack": "45",
+			"totalExp": "50"
+		},
+		{
+			"level": "4",
+			"maxHp": "600",
+			"attack": "50",
+			"totalExp": "90"
+		},
+		{
+			"level": "5",
+			"maxHp": "700",
+			"attack": "60",
+			"totalExp": "150"
+		},
+		{
+			"level": "6",
+			"maxHp": "10000000",
+			"attack": "100000",
+			"totalExp": "800000"
 		}
+
 
 	]
 

@@ -21,6 +21,7 @@ public class UI_Button : UI_Popup
     enum Buttons
     {
         PointButton,
+        EscButton
     }
 
     enum GameObjects
@@ -36,10 +37,6 @@ public class UI_Button : UI_Popup
     // enum으로부터 받아와서 이름과 일치하는 것을 찾아서 저장
     // reflection 이용
 
-    private void Start()
-    {
-        Init();
-    }
     public override void Init()
     {
         base.Init();
@@ -49,21 +46,17 @@ public class UI_Button : UI_Popup
         Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
 
-        //GetText((int)Texts.ScoreText).text = "바인드 테스트";
-
-        GetButton((int)Buttons.PointButton).gameObject.BindEvent(OnButtonClicked);
+        GetButton((int)Buttons.EscButton).gameObject.BindEvent(OnButtonClicked);
 
 
-        GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
+        //GameObject go = GetImage((int)Images.ItemIcon).gameObject;
+        //BindEvent(go, (PointerEventData data) => { go.transform.position = data.position; }, Define.UIEvent.Drag);
 
     }
 
-    int _score = 0;
     public void OnButtonClicked(PointerEventData data)
     {
-        _score++;
-        GetText((int)Texts.ScoreText).text = $"점수 : {_score}";
+        Managers.UI.ClosePopupUI();
     }
 
     
